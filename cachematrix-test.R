@@ -32,7 +32,7 @@ assert( m == m.stored )
 ###############################################################################################
 
 #### When
-m.inverted <- cm$get.inverted()
+m.inverted <- cm$get.cache()
 
 #### Then
 assert( is.null(m.inverted) )
@@ -42,10 +42,10 @@ assert( is.null(m.inverted) )
 ###############################################################################################
 
 #### When
-cm$set.inverted(other.matrix)
+cm$set.cache(other.matrix)
 
 #### Then
-m.inverted <- cm$get.inverted()
+m.inverted <- cm$get.cache()
 assert( ! is.null(m.inverted) )
 
 ###############################################################################################
@@ -68,13 +68,13 @@ assert( m.stored == other.matrix )
 ###############################################################################################
 
 #### Given
-cm$set.inverted(some.matrix)
+cm$set.cache(some.matrix)
 
 #### When
 cm$set(some.matrix)
 
 #### Then
-m.inverted <- cm$get.inverted()
+m.inverted <- cm$get.cache()
 assert( is.null(m.inverted) )
 
 ###############################################################################################

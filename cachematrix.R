@@ -1,5 +1,3 @@
-library(testit)
-
 ## Put comments here that give an overall description of what your
 ## functions do
 
@@ -7,26 +5,26 @@ library(testit)
 
 makeCacheMatrix <- function(x = matrix()) {
 
-    x.inverted.cache <- NULL
+    cache <- NULL
     
-    set <- function(new.x) {
-        x <<- new.x
-        x.inverted.cache <<- NULL
+    set <- function(new.value) {
+        x <<- new.value
+        cache <<- NULL
     }
     
     get <- function() {
         return(x)
     }
     
-    set.inverted <- function(inverted) {
-        x.inverted.cache <<- inverted
+    set.cache <- function(value) {
+        cache <<- value
     }
     
-    get.inverted <- function() {
-        return(x.inverted.cache)
+    get.cache <- function() {
+        return(cache)
     }
     
-    list(set = set, get = get, set.inverted = set.inverted, get.inverted = get.inverted)
+    list(set = set, get = get, set.cache = set.cache, get.cache = get.cache)
 }
 
 
@@ -35,7 +33,7 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
     
-    inverted <- x$get.inverted()
+    inverted <- x$get.cache()
     
     if (!is.null(inverted)) {
         message("getting cached data")
@@ -44,7 +42,7 @@ cacheSolve <- function(x, ...) {
     
     stored.matrix <- x$get()
     inverted <- solve(stored.matrix, ...)
-    x$set.inverted(inverted)
+    x$set.cache(inverted)
     
     inverted
 }
