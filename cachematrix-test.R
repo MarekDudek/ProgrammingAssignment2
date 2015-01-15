@@ -32,21 +32,21 @@ assert( m == m.stored )
 ###############################################################################################
 
 #### When
-m.inverted <- cm$get.cache()
+m.inverse <- cm$get.cache()
 
 #### Then
-assert( is.null(m.inverted) )
+assert( is.null(m.inverse) )
 
 ###############################################################################################
-### ... until it is explicitely set.
+### ... until it is set by solving.
 ###############################################################################################
 
 #### When
-cm$set.cache(other.matrix)
+cacheSolve(cm)
 
 #### Then
-m.inverted <- cm$get.cache()
-assert( ! is.null(m.inverted) )
+m.inverse <- cm$get.cache()
+assert( ! is.null(m.inverse) )
 
 ###############################################################################################
 ### It should be possible to change stored value ...
@@ -68,17 +68,19 @@ assert( m.stored == other.matrix )
 ###############################################################################################
 
 #### Given
-cm$set.cache(some.matrix)
+m  <- matrix(some.matrix, nrow=N, ncol=N)
+cm <- makeCacheMatrix(m)
+cacheSolve(cm)
 
 #### When
 cm$set.value(some.matrix)
 
 #### Then
-m.inverted <- cm$get.cache()
-assert( is.null(m.inverted) )
+m.inverse <- cm$get.cache()
+assert( is.null(m.inverse) )
 
 ###############################################################################################
-### Inverted matrix should be returned ...
+### Inverse matrix should be returned ...
 ###############################################################################################
 
 N = 3
@@ -88,17 +90,17 @@ m  <- matrix(c(1, 0, 1, 2, 4, 0, 3, 5, 6), nrow=N, ncol=N)
 cm <- makeCacheMatrix(m)
 
 #### When
-inverted <- cacheSolve(cm)
+inverse <- cacheSolve(cm)
 
 #### Then
-assert( m %*% inverted == diag(1, N) )
+assert( m %*% inverse == diag(1, N) ) # About matrix inversion see 'matrix-inversion-examples.R'
 
 ###############################################################################################
 ### ... also the second time.
 ###############################################################################################
 
 #### When
-inverted <- cacheSolve(cm)
+inverse <- cacheSolve(cm)
 
 #### Then
-assert( m %*% inverted == diag(1, N) )
+assert( m %*% inverse == diag(1, N) )

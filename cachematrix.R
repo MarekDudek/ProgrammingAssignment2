@@ -2,25 +2,27 @@
 ##
 ## 'makeCacheMatrix' creates cacheable matrix
 ## 'cacheSolve' returns (possibly cached) solution
+##
+## Automatic tests of functionality in 'cachematrix-test.R' show example usage.
 
 
 ## Create cacheable matrix.
 ##
-## Function stores source matrix and (initially empty) cache of its derived value. 
+## Function stores source matrix ('x' variable) and (initially empty) cache ('cache' variable) of its derived value. 
 ## It also exposes functions that enable manipulation of those two values.
-## Cache is emptied whenever source matrix changes.
+## Cache is emptied whenever source matrix changes (by calling 'set.value' function).
 
-makeCacheMatrix <- function(matrix = matrix()) {
+makeCacheMatrix <- function(x = matrix()) {
 
     cache <- NULL
     
     set.value <- function(new.matrix) {
-        matrix <<- new.matrix
+        x      <<- new.matrix
         cache  <<- NULL
     }
     
     get.value <- function() {
-        return(matrix)
+        return(x)
     }
     
     set.cache <- function(new.cache) {
@@ -35,22 +37,20 @@ makeCacheMatrix <- function(matrix = matrix()) {
 }
 
 
-## Return inverted matrix, handling cached value.
+## Return inverse matrix, handling cached value.
 ##
 ## Function solves (inverts) matrix or returns solution from cache.
 ## If cache is empty it is filled with solution for further use.
 
-cacheSolve <- function(cachable.matrix, ...) {
+cacheSolve <- function(x, ...) {
     
-    inverted <- cachable.matrix$get.cache()
+    inverse <- x$get.cache()
     
-    if (is.null(inverted)) {
-        value <- cachable.matrix$get.value()
-        inverted <- solve(value, ...)
-        cachable.matrix$set.cache(inverted)
-    } else {
-        message("getting cached data")
+    if (is.null(inverse)) {
+        value    <- x$get.value()
+        inverse <- solve(value, ...)
+        x$set.cache(inverse)
     }
     
-    inverted
+    inverse
 }

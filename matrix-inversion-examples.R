@@ -2,7 +2,7 @@ library(testit)
 
 ## Matrix inversion examples
 ##
-## Three example invertible matrices are inverted using 'solve' function and the result is tested.
+## Three example invertible matrices are inversed using 'solve' function and the result is tested.
 ## Matrix multiplied by its inverse should give identity matrix - square diagonal matrix with ones along the diagonal.
 ##
 ## '%*%'     operator performs matrix multiplication
