@@ -77,3 +77,28 @@ cm$set(some.matrix)
 m.inverted <- cm$get.inverted()
 assert( is.null(m.inverted) )
 
+###############################################################################################
+### Inverted matrix should be returned ...
+###############################################################################################
+
+N = 3
+
+#### Given
+m  <- matrix(c(1, 0, 1, 2, 4, 0, 3, 5, 6), nrow=N, ncol=N)
+cm <- makeCacheMatrix(m)
+
+#### When
+inverted <- cacheSolve(cm)
+
+#### Then
+assert( m %*% inverted == diag(1, N) )
+
+###############################################################################################
+### ... also the second time.
+###############################################################################################
+
+#### When
+inverted <- cacheSolve(cm)
+
+#### Then
+assert( m %*% inverted == diag(1, N) )
