@@ -35,19 +35,22 @@ makeCacheMatrix <- function(matrix = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## Return inverted matrix, handling cached value.
+##
+## Function solves (inverts) matrix or returns solution from cache.
+## If cache is empty it is filled with solution for further use.
 
 cacheSolve <- function(cachable.matrix, ...) {
     
-    cache <- cachable.matrix$get.cache()
+    inverted <- cachable.matrix$get.cache()
     
-    if (is.null(cache)) {
+    if (is.null(inverted)) {
         value <- cachable.matrix$get.value()
-        cache <- solve(value, ...)
-        cachable.matrix$set.cache(cache)
+        inverted <- solve(value, ...)
+        cachable.matrix$set.cache(inverted)
     } else {
         message("getting cached data")
     }
     
-    cache
+    inverted
 }
