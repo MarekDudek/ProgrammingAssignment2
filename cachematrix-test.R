@@ -22,7 +22,7 @@ m  <- matrix(some.matrix, nrow=N, ncol=N)
 cm <- makeCacheMatrix(m)
 
 #### When
-m.stored <- cm$get()
+m.stored <- cm$get.value()
 
 #### Then
 assert( m == m.stored )
@@ -57,10 +57,10 @@ m  <- matrix(some.matrix, nrow=N, ncol=N)
 cm <- makeCacheMatrix(m)
 
 #### When
-cm$set(other.matrix)
+cm$set.value(other.matrix)
 
 #### Then
-m.stored <- cm$get()
+m.stored <- cm$get.value()
 assert( m.stored == other.matrix )
 
 ###############################################################################################
@@ -71,7 +71,7 @@ assert( m.stored == other.matrix )
 cm$set.cache(some.matrix)
 
 #### When
-cm$set(some.matrix)
+cm$set.value(some.matrix)
 
 #### Then
 m.inverted <- cm$get.cache()
